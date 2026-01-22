@@ -1,12 +1,22 @@
 gsap.registerPlugin(ScrollTrigger);
 
-const music = document.getElementById("bgMusic");
+const bgMusic = document.getElementById("bgMusic");
 
-function startMusic() {
-  music.volume = 0.25;
-  music.play().catch(() => {});
-  document.removeEventListener("click", startMusic);
-  document.removeEventListener("touchstart", startMusic);
+function playMusic() {
+  bgMusic.volume = 0.25;
+  bgMusic.play().catch(() => {});
+  
+  // remove listeners after first interaction
+  document.removeEventListener("click", playMusic);
+  document.removeEventListener("touchstart", playMusic);
+  document.removeEventListener("keydown", playMusic);
+}
+
+// works on desktop + mobile
+document.addEventListener("click", playMusic);
+document.addEventListener("touchstart", playMusic);
+document.addEventListener("keydown", playMusic);
+
 }
 
 // Mobile + Desktop support
@@ -68,3 +78,4 @@ document.getElementById("yesBtn").onclick=()=>{
     navigator.vibrate([200,100,200,100,400]);
   }
 };
+
